@@ -3,70 +3,111 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game{
-	
-static Scanner input = new Scanner(System.in);  
-static int tries = 3;
+
+static Scanner input;  
+static Scanner input2;
+static int tries;
+static int guess;
+static String reply;
+static int answer;
+static boolean game;
+final boolean run = true;
 
 	public static void GameLoop() {
 		
-		Random ran = new Random();
-		final int answer = ran.nextInt(10);
-		
+		tries = 3;
 		System.out.println("Pick a number 1-10");
 		System.out.println("Tries left: " + tries);
 		
-		while (tries > 0 ) {
-			
-			int guess = input.nextInt();
-			tries = (tries - 1);
-			
-			if (guess == answer) {
+		game = true;
+		input = new Scanner(System.in);
+		Random ran = new Random();
+		final int answer = ran.nextInt(10);
 
-				System.out.println("You got it!");
-				System.out.println("Play again?");
-				System.out.println("Y/N");
-				Game.NewGame();
-//				input.close();
-//				System.exit(0);
-				}
-			if (guess != answer){ 
+		
+			while (tries > 0 && game == true) {
+								
+				tries = (tries - 1);
+				int guess = input.nextInt();
 				
-				System.out.println("Guess again.");
-				System.out.println("Tries left: " + tries);
-				
-				} 
-			if (tries == 0) {
-
-				System.out.println("You lose. Try again?");
-				System.out.println("Y/N");
-				Game.NewGame();
-//				input.close();
-//				System.exit(0);
+				if (guess == answer) {
+					
+					System.out.println("You got it!");
+					game = false;
+	
+					}
+				else if (guess != answer && tries > 0){ 
+					
+					System.out.println("Guess again.");
+					System.out.println("Tries left: " + tries);
+					
+					} 
+				else if (tries == 0 && answer != guess) {
+	
+					System.out.println("You lose.");
+					game = false;
+	
 			}
 		}
 	}
 	
 	public static void NewGame() {
 		
-		String reply = input.next();
+		input2 = new Scanner(System.in);
+		
+		while (game == false) {
+			
+			System.out.println("Play again? Y/N");
+
+			String reply = input2.nextLine();
+			
+			if (reply.equals("Y")) {
 				
-			if (reply == "Y") {
+				Game.GameLoop();
+
+			} 
+			
+			else if (reply.equals("yes")) {
 				
 				Game.GameLoop();
 				
 			}
 			
-			if (reply == "N") {
+			else if (reply.equals("y")) {
 				
-				input.close();
+				Game.GameLoop();
 				
-			}		
+			}
+			
+			else if (reply.equals("N")){
+				
+				break;
+				
+			}
+			
+			else if (reply.equals("no")){
+				
+				break;
+				
+			}
+			
+			else if (reply.equals("n")){
+				
+				break;
+				
+			}
+			
+			else {
+				
+				System.out.println("Please enter a valid selection.");
+				
+			}
 		}
-	
-	public static void main(String[] args) {
+	}
 		
+	public static void main(String[] args) {
+	
 		Game.GameLoop();
 		Game.NewGame();
-
-		}
+	}
 	}
