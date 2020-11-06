@@ -37,10 +37,20 @@ final boolean run = true;
 	
 					}
 				else if (guess != answer && tries > 0){ 
+									
+					if (guess > answer) {
+						
+						System.out.println("Pick a lower number.");
+						System.out.println("Tries left: " + tries);
+						
+					}
 					
-					System.out.println("Guess again.");
-					System.out.println("Tries left: " + tries);
-					
+					else if (guess < answer) {
+						
+						System.out.println("Pick a higher number.");						
+						System.out.println("Tries left: " + tries);
+						
+					}					
 					} 
 				else if (tries == 0 && answer != guess) {
 	
@@ -81,18 +91,21 @@ final boolean run = true;
 			
 			else if (reply.equals("N")){
 				
+				System.out.println("Goodbye.");
 				break;
 				
 			}
 			
 			else if (reply.equals("no")){
 				
+				System.out.println("Goodbye.");
 				break;
 				
 			}
 			
 			else if (reply.equals("n")){
 				
+				System.out.println("Goodbye.");
 				break;
 				
 			}
